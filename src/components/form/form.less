@@ -1,0 +1,51 @@
+@import "../../../less/core/mixins";
+@import "../../../less/core/variables";
+
+.form {
+	position: relative;
+	width: 23.2rem;
+	padding: 0.2rem 0.9rem;
+}
+
+.title {
+	font-weight: normal;
+	text-align: center;
+	font-size: 1.1rem;
+	margin: 0.7rem 0 2.6rem;
+}
+
+.label {
+	display: block;
+	text-transform: uppercase;
+	font-size: 0.9rem;
+	margin: 0 0 0.7rem;
+}
+
+.group {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	.field {
+		width: 11.3rem;
+	}
+}
+
+.field {
+	margin:0 0 1.5rem;
+
+	:global {
+		.intl-tel-input {
+			display: block;
+			.country-list {
+				width: 23.2rem;
+				box-sizing: border-box;
+			}
+		}
+	}
+}
+
+.field_button {
+	text-align: center;
+	margin: 2.7rem 0 0;
+}

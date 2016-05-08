@@ -1,0 +1,44 @@
+@import '../../atoms/field_input.less';
+
+.field_input_filter {
+	position: relative;
+	z-index:14;
+}
+
+.field_input {
+	composes: field_input;
+	position: relative;
+	z-index: 3;
+}
+
+.popup {
+	//display: none;
+	position: absolute;
+	border: 1px solid #ccc;
+	width: 23.2rem;
+	top: 2.6rem;
+	list-style: none;
+	z-index: 2;
+	padding: 0;
+	background-color: #fff;
+	max-height: 200px;
+	overflow-y: scroll;
+	border-radius: 0 0 3px 3px;
+	box-sizing: border-box;
+}
+
+.link {
+	display: block;
+	text-decoration: none;
+	color: #000;
+	padding: 0.6rem 0.7rem;
+	font-size: 1rem;
+
+	&:first-child {
+		padding-top: 1.3rem;
+	}
+
+	&:last-child {
+		padding-bottom: 1.3rem;
+	}
+}

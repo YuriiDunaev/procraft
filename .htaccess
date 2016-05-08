@@ -1,0 +1,76 @@
+DirectoryIndex index.php index.html
+AddDefaultCharset UTF-8
+AddCharset utf-8 .php .html .css .js .xml .json .rss
+ServerSignature Off
+Options -Indexes
+
+
+
+php_flag register_globals off
+php_flag magic_quotes_gpc off
+php_flag magic_quotes_runtime Off
+
+
+
+
+<IfModule mod_rewrite.c>
+
+	RewriteEngine On
+
+	# У домена убираем префикс "www.". (редирект с www.example.com на example.com)
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+
+
+	# Обработка конечных слешей, что бы при запросе "/news/" перенаправлял на "/news". Это надо для SEO-шников
+	RewriteCond %{REQUEST_URI} ^(.*)/$
+	RewriteRule ^(.*)/$ http://%{HTTP_HOST}%1 [R=permanent,L]
+
+
+
+	# Все запросы к несуществующим файлам перенаправляет в index.php
+	RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|png|gif|svg|swf|flv|css|js|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|cur|ico|ppt|txt|tar|mid|midi|wav|bmp|rtf|woff|ttf|eot|mp4|ogg|webm)$ [NC]	# кроме таких запросов
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+	RewriteRule ^(.+)$ index.php?REQUEST_URI=$1 [L,QSA]
+
+
+	# Защита системных файлов и директорий
+	RewriteRule ^(.*/)?\.hg - [F]
+
+</IfModule>
+
+
+
+
+
+# gzip сжатие.
+<IfModule mod_deflate.c>
+
+	# html, txt, css, js, json, xml, htc:
+	AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
+	AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+	AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
+
+	# веб-шрифты и svg:
+	<FilesMatch "\.(ttf|otf|eot|svg)$" >
+		SetOutputFilter DEFLATE
+	</FilesMatch>
+</IfModule>
+
+
+
+<IfModule mod_expires.c>
+	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf|ttf|otf|eot|svg|woff)$">
+		Header set Cache-Control "public"
+		Header set Expires "Fri, 17 May 2030 20:00:00 GMT"
+		FileETag None
+	</FilesMatch>
+</IfModule>
+
+
+
+

@@ -35,9 +35,8 @@ export default class FieldInputFilter extends Component {
 	 * @param e - event
 	 */
 	onBlur() {
-		setTimeout(() => {
-			this.props.setFiltered('');
-		}, 100);
+		this.setState({items: []});
+		this.props.setFiltered('');
 	}
 
 	/**
@@ -71,8 +70,8 @@ export default class FieldInputFilter extends Component {
 	linkOnClick(e) {
 		e.preventDefault();
 
-		this.setState({items: []});
 		this.refs.input.value = e.currentTarget.textContent;
+		this.refs.input.blur();
 	}
 
 	render() {
@@ -85,7 +84,7 @@ export default class FieldInputFilter extends Component {
 					href="#!"
 					key={index}
 					dangerouslySetInnerHTML={{__html: item}}
-				    onClick={this.linkOnClick.bind(this)}
+				    onMouseDown={this.linkOnClick.bind(this)}
 				></a>
 			)
 		});

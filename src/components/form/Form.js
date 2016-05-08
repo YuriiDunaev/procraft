@@ -67,7 +67,7 @@ export default class Form extends Component {
 						<IntlTelInput
 							defaultCountry={this.props.lang}
 							onlyCountries={['ru', 'us', 'tw']}
-							preferredCountries=""
+							preferredCountries={['']}
 							css={['intl-tel-input', 'form-control '  + input.field_input]}
 							utilsScript={'libphonenumber.js'}
 						/>
